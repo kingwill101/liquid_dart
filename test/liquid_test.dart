@@ -197,9 +197,12 @@ void main() {
       final context = Context.create();
       final root = TestRoot({
         'name_snippet.html': '{{ greeting }}, {{ person|default:"friend" }}!',
+        'path/name_snippet.html': '{{ greeting }}, {{ person|default:"friend" }}!',
         'simple': '{% include "name_snippet.html" %}',
         'args': '{% include "name_snippet.html" with person="Jane" greeting="Howdy" %}',
         'only': '{% include "name_snippet.html" with greeting="Hi" only %}',
+        'no_quote': '{% include name_snippet.html with greeting="Hi" only %}',
+        'with_path': '{% include path/name_snippet.html with greeting="Hi" only %}',
       });
 
       context.variables['person'] = 'John';
@@ -210,6 +213,12 @@ void main() {
       template = Template.parse(context, await root.resolve('args'));
       expect(await template.render(context), equals('Howdy, Jane!'));
       template = Template.parse(context, await root.resolve('only'));
+      expect(await template.render(context), equals('Hi, friend!'));
+
+      template = Template.parse(context, await root.resolve('no_quote'));
+      expect(await template.render(context), equals('Hi, friend!'));
+
+      template = Template.parse(context, await root.resolve('with_path'));
       expect(await template.render(context), equals('Hi, friend!'));
     });
 
