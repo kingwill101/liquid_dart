@@ -1,5 +1,4 @@
 import 'package:liquid_engine/liquid_engine.dart';
-import 'package:liquid_engine/src/drop.dart';
 import 'package:test/test.dart';
 
 void main() {
