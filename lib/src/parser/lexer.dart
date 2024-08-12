@@ -58,7 +58,7 @@ class Lexer {
     addTokenCreator("'", _TokenCreator.re(TokenType.single_string, r"'.*?'"));
     addTokenCreator('"', _TokenCreator.re(TokenType.double_string, r'".*?"'));
     addTokenCreator('-0-9', _TokenCreator.re(TokenType.number, r'-?\d+(?:\.\d+)?'));
-    addTokenCreator('a-zA-Z_', _TokenCreator.re(TokenType.identifier, r'[a-zA-Z_][\w-]*\??'));
+    addTokenCreator('a-zA-Z_', _TokenCreator.re(TokenType.identifier, r'''[^\s,\|\'"\{\}]+'''));
     addTokenCreator('.', _TokenCreator(TokenType.dotdot, '..'));
     addTokenCreator('|', _TokenCreator(TokenType.pipe, '|'));
     addTokenCreator('.', _TokenCreator(TokenType.dot, '.'));

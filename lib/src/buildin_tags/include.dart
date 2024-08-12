@@ -50,6 +50,12 @@ class _IncludeBlockParser extends BlockParser {
   @override
   Block create(List<Token> tokens, List<Tag> children) {
     final parser = TagParser.from(tokens);
+    
+    if(parser.current.type == TokenType.identifier){
+      parser.current.type = TokenType.single_string;
+      parser.current.value = "'${parser.current.value}'";
+    }
+
     final childBuilder = parser.parseDocumentReference(context);
 
     final assignments = <_Assign>[];

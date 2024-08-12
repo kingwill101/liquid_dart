@@ -41,8 +41,8 @@ enum TokenType {
 }
 
 class Token {
-  final TokenType? type;
-  final String value;
+  TokenType? type;
+  String value;
   final Source? source;
   final int? line;
   final int? column;
